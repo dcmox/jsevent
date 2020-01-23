@@ -1,0 +1,28 @@
+<script src="jsevents.js"></script>
+
+<script>
+	class cls extends EventEmitter {}
+
+	let test = new cls()
+
+	test.on('welcome', () => console.log('hello world!'))
+	test.on('glhf', () => console.log('good luck, have fun!'))
+	test.on('hi', (name) => console.log(`hi ${name}`)) 
+	test.once('once', (name) => console.log('one shot!!')) 
+
+	test.emit('welcome')
+	test.emit('glhf')
+	test.emit('hi', 'john')
+
+	test.once('newListener', (event) => {
+		if (event === 'once') {
+			test.on('once', () => {
+				console.log('two shot!')
+			})
+		}
+	})
+
+	test.emit('once')
+	test.emit('once')
+	test.emit('once')
+</script>
